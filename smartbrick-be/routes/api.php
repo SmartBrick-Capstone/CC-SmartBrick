@@ -19,4 +19,6 @@ use Illuminate\Support\Facades\Route;
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout']);
-Route::get('getArticles', [ArticleController::class, 'getArticles']);
+Route::get('articles', [ArticleController::class, 'getArticles']);
+Route::get('articles/{total}', [ArticleController::class, 'getHomeArticles']);
+Route::get('articles/{slug}/show', [ArticleController::class, 'showArticle']);
