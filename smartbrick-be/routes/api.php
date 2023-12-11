@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ArticleController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\VerificationEmailController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +23,4 @@ Route::post('logout', [AuthController::class, 'logout']);
 Route::get('articles', [ArticleController::class, 'getArticles']);
 Route::get('articles/{total}', [ArticleController::class, 'getHomeArticles']);
 Route::get('articles/{slug}/show', [ArticleController::class, 'showArticle']);
+Route::get('send-otp', [VerificationEmailController::class, 'sendOtp']);
