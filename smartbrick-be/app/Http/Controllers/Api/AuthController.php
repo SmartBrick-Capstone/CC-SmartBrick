@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 
@@ -39,16 +40,22 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         if (!$token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json([
+                'success' => false,
+                'message' => 'Login Failed! Incorrect E-mail or Password.',
+            ], 401);
         }
 
         $token = $this->respondWithToken($token);
+        $loginResult = Auth::guard('api')->user();
+        $loginResult['token'] = $token;
         return response()->json([
             'success' => true,
             'message' => 'Successfully logged in!',
-            'token' => $token
+            'loginResult' => $loginResult
         ]);
     }
+
     protected function respondWithToken($token)
     {
         return $token;
