@@ -14,14 +14,14 @@ class VerificationEmailController extends Controller
 
         if (!$user) {
             return response()->json([
-                'error' => true,
+                'success' => false,
                 'message' => 'User not found'
             ], 404);
         }
 
         if ($user->hasVerifiedEmail()) {
             return response()->json([
-                'error' => true,
+                'success' => false,
                 'message' => 'Email has been verified'
             ], 422);
         }
@@ -29,8 +29,35 @@ class VerificationEmailController extends Controller
         $user->sendEmailVerificationNotification();
 
         return response()->json([
-            'error' => false,
+            'success' => true,
             'message' => 'OTP code has been sent to email'
         ]);
+    }
+
+    public function verifyEmail(Request $request)
+    {
+        $user = User::where('email', $request->email)->first();
+        if ($user->email_verified_at) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Email has been verified'
+            ], 422);
+        }
+        if ($request->otp == $user->otp && $user->otp_expired_at > now()) {
+            $user->update([
+                'email_verified_at' => now(),
+                'otp' => null,
+                'otp_expired_at' => null
+            ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Email verified successfully'
+            ]);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Invalid or expired OTP'
+        ], 422);
     }
 }
