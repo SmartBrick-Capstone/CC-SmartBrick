@@ -1,0 +1,7 @@
+0 other
+1 plastic
+2 paper
+3 metal
+4 cardboard
+5 plastic2
+6 makanan
