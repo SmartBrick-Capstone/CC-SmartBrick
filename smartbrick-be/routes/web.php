@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\ArticleController;
+use App\Http\Controllers\Admin\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware('guest:admin')->group(function () {
+    Route::get('login', [AuthController::class, 'index']);
+    Route::post('login', [AuthController::class, 'login'])->name('login');
+});
+Route::middleware('auth:admin')->group(function () {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('article', [ArticleController::class, 'index'])->name('article.index');
+    Route::get('article/create', [ArticleController::class, 'create'])->name('article.create');
 });
