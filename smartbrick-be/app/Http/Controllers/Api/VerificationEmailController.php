@@ -44,7 +44,7 @@ class VerificationEmailController extends Controller
             ], 422);
         }
         if ($request->otp == $user->otp && $user->otp_expired_at > now()) {
-            $user->update([
+            User::where('email', $request->email)->update([
                 'email_verified_at' => now(),
                 'otp' => null,
                 'otp_expired_at' => null
