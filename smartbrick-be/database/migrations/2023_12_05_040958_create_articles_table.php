@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('author');
             $table->string('publisher');
             $table->date('date');
-            $table->string('content');
+            $table->text('content');
             $table->string('image');
             $table->timestamps();
         });
