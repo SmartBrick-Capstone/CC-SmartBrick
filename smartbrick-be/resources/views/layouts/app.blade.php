@@ -98,10 +98,25 @@
     <script src={{ asset('assets/js/dropzone.min.js') }}></script>
     <script src={{ asset('assets/js/uppy.min.js') }}></script>
     <script src={{ asset('assets/js/quill.min.js') }}></script>
-    {{-- <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
     <script>
         CKEDITOR.replace('editor');
+    </script>
+    {{-- <script>
+        quill.on('text-change', function() {
+            var editorContent = quill.root.innerHTML;
+            document.getElementById('editor').value = editorContent;
+        });
     </script> --}}
+    <script>
+        $(document).ready(function() {
+            $('#title').on('input', function() {
+                var title = $(this).val();
+                var slug = title.toLowerCase().replace(/\s+/g, '-');
+                $('#slug').val(slug);
+            });
+        });
+    </script>
     <script>
         $('.select2').select2({
             theme: 'bootstrap4',
@@ -174,7 +189,7 @@
             placeholder: "___.___.___.___"
         });
         // editor
-        var editor = document.getElementById('editor');
+        var editor = document.getElementById('editor1');
         if (editor) {
             var toolbarOptions = [
                 [{

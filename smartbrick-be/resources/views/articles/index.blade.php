@@ -6,6 +6,11 @@
         <p class="card-text">DataTables is a plug-in for the jQuery Javascript library. It is a highly flexible tool, built
             upon the foundations of progressive enhancement, that adds all of these advanced features to any HTML table.
         </p>
+        <div class="d-flex justify-content-start">
+            <a href="{{ route('article.create') }}" class="btn btn-primary">
+                Tambah Data
+            </a>
+        </div>
         <div class="row my-4">
             <!-- Small table -->
             <div class="col-md-12">

@@ -25,4 +25,5 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('article', [ArticleController::class, 'index'])->name('article.index');
     Route::get('article/create', [ArticleController::class, 'create'])->name('article.create');
+    Route::post('article/store', [ArticleController::class, 'store'])->name('article.store');
 });
